@@ -21,6 +21,11 @@ spring:
 server:
   port: 9093
 
+gemini:
+  api:
+    url: ${GEMINI_URL}
+    key: ${GEMINI_KEY}
+
 kafka:
   topic:
     name: activity-events
