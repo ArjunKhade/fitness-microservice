@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const appSlice = createSlice({
     name: "app",
     initialState: {
-        user: JSON.parse(localStorage.getItem("user")) | null,
-        token: localStorage.getItem("token")| null,
-        userId: localStorage.getItem("userId")| null
+      user: JSON.parse(localStorage.getItem("user")) || null,
+      token: localStorage.getItem("token") || null,
+      userId: localStorage.getItem("userId") || null
     },
     reducers: {
       setCredentials: (state, action) => {
@@ -24,6 +24,13 @@ const appSlice = createSlice({
         localStorage.removeItem("token")
         localStorage.removeItem("user")
         localStorage.removeItem("userId")
+        // remove any localStorage keys that start with 'ROCP'
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith("ROCP")) {
+            localStorage.removeItem(key);
+          }
+        }
       }
     }
 })
