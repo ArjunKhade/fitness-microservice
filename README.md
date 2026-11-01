@@ -124,7 +124,38 @@ docker run -d \
 
    > After creating each user, go to the **Credentials** tab to set the password and disable **Temporary**.
 
-5. Create a **Client** for your application with **OAuth2 + PKCE** flow enabled.
+5. Create a **Client** for your application with **OAuth2 + PKCE** flow enabled:
+
+   Navigate to: `fitness-app` realm → **Clients** → **Create client**
+
+   - **General configuration:**
+     - **Client type:** `OpenID Connect`
+     - **Client ID:** `oauth2-pkce-client`
+     - Click **Next**
+
+   - **Capability config:**
+     - **Client authentication:** `OFF` *(Required for public clients like React SPA)*
+     - **Authorization:** `OFF`
+     - **Authentication flow:** Check **Standard flow** and **Direct access grants**
+     - Click **Next**
+
+   - **Login settings:**
+     - **Root URL:** `http://localhost:5173`
+     - **Home URL:** `http://localhost:5173`
+     - **Valid redirect URIs:** `http://localhost:5173/*`
+     - **Valid post logout redirect URIs:** `http://localhost:5173/*` *(or `+`)*
+     - **Web origins:** `http://localhost:5173` *(or `+` to enable CORS)*
+     - Click **Save**
+
+   - **Enforce PKCE (Advanced Settings):**
+     - Open the **Advanced** tab of `oauth2-pkce-client`
+     - Scroll to **Advanced settings** → **Proof Key for Code Exchange Code Challenge Method**
+     - Set to **`S256`**
+     - Click **Save**
+
+   - **Verify Client Scopes:**
+     - Go to the **Client scopes** tab
+     - Ensure `offline_access` is included under Default or Optional scopes (for refresh tokens).
 
 ---
 
